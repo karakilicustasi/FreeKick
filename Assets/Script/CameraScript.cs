@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class CameraScript : MonoBehaviour
 {
+    Transform target;
+
+    float camSpeed=10f;
+    float camHeight;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,9 +18,10 @@ public class CameraScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
-    private void fillCamera() {
-        transform.localScale = new Vector3(Camera.main.orthographicSize * 2.0f * Screen.width / Screen.height, Camera.main.orthographicSize * 2.0f, 0.1f);
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
+        {
+            Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
+            transform.Translate(-touchDeltaPosition.x * camSpeed, -touchDeltaPosition.y * camSpeed, 0);
+        }
     }
 }
